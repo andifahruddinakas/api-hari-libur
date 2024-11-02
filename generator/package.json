@@ -1,0 +1,20 @@
+{
+  "name": "api-idm",
+  "version": "1.0.0",
+  "description": "Sumber Data : https://idm.kemendesa.go.id/open/api/desa/rumusan/[kode_desa]/[tahun]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "xlsx": "^0.18.5"
+  }
+}

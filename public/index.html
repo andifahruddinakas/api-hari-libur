@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="API Hari Libur Nasional Indonesia" />
+    <meta name="author" content="Andi Fahruddin Akas" />
+    <meta name="keywords" content="API, Hari Libur, Nasional, Indonesia" />
+    <title>API Hari Libur Nasional Indonesia</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #2a5cff, #ffffff);
+            color: rgba(0, 0, 0, 0.87);
+            font-family: Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #message {
+            background: white;
+            max-width: 805px;
+            margin: 16px auto;
+            padding: 32px 24px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+        h2, h3 {
+            color: #2a5cff;
+            margin: 0 0 8px;
+        }
+        h1 {
+            font-size: 17px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0 0 16px;
+        }
+        .grey {
+            line-height: 140%;
+            margin: 16px 0 24px;
+            font-size: 14px;
+            background-color: rgb(33, 31, 31);
+            padding: 10px;
+            border-radius: 5px; /* Tambahkan border-radius di sini */
+            color: rgb(255, 255, 255); /* Warna teks default */
+        }
+        .key {
+            color: #f22c3d;
+        }
+        .value {
+            color: #00a67d;
+        }
+        #load {
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+            font-size: 13px;
+        }
+        @media (max-width: 600px) {
+            #message {
+                max-width: 90%;
+                padding: 16px 12px;
+            }
+        }
+        ul li {
+            margin-bottom: 15px;
+        }
+        ul li small {
+            background-color: gainsboro;
+            padding: 5px;
+            border-radius: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">
+        <h2 align="center">API Hari Libur Nasional Indonesia</h2>
+        <h3>Format Response</h3>
+        <p class="grey">
+            { <br />
+            &nbsp;&nbsp;&nbsp;<span class="key">"status"</span> : <span class="value">"success"</span>, <br />
+            &nbsp;&nbsp;&nbsp;<span class="key">"code"</span> : <span class="value">200</span>, <br />
+            &nbsp;&nbsp;&nbsp;<span class="key">"data"</span> : { <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"date"</span> : <span class="value">"2024-01-01"</span>, <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"description"</span> : <span class="value">"Tahun Baru 2024"</span> <br />
+            &nbsp;&nbsp;&nbsp;}, <br />
+            &nbsp;&nbsp;&nbsp;<span class="key">"message"</span>: <span class="value">"Holidays found"</span> <br />
+            }<br />
+        </p>
+        <h3>Akses API</h3>
+        <ul>
+            <li><a href="/api">/api</a> untuk mendapatkan data hari libur tahun sekarang.</li>
+            <li><a href="/api?year=2024">/api?year=2024</a> untuk mendapatkan data hari libur pada tahun 2024.</li>
+            <li><a href="/api?month=1">/api?month=1</a> untuk mendapatkan data hari libur di bulan 1.</li>
+            <li><a href="/api?month=1&year=2024">/api?month=1&year=2024</a> untuk mendapatkan data hari libur di bulan 1 pada tahun 2024.</li>
+        </ul>
+        <h3>Sumber Data</h3>
+        <p>API ini mengambil data dari <a href="https://www.tanggalan.com/">tanggalan.com</a> dengan melakukan scraping.</p>
+        <h3>Kontribusi</h3>
+        <p>Jika Anda ingin berkontribusi, kunjungi repositori di <a href="https://github.com/andifahruddinakas/api-hari-libur">GitHub</a>.</p>
+    </div>
+</body>
+</html>
