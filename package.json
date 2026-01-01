@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "index.js": "^0.0.3",
     "touch": "^3.1.1"
   },
