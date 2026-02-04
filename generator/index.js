@@ -64,13 +64,20 @@ const scrapeHolidays = async (year) => {
     }
 
     fs.writeFileSync(outputPath, JSON.stringify(holidays));
-    console.log(`Data untuk tahun ${year} berhasil disimpan.`);
+    console.log(`[${new Date().toISOString()}] Data untuk tahun ${year} berhasil disimpan.`);
+    return { success: true, year, message: `Data untuk tahun ${year} berhasil disimpan.` };
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error(`[${new Date().toISOString()}] Error untuk tahun ${year}:`, error.message);
+    return { success: false, year, message: error.message };
   }
 };
 
-const inputYear = process.argv[2];
-const year = inputYear ? parseInt(inputYear, 10) : new Date().getFullYear();
+// Export untuk digunakan sebagai module
+module.exports = { scrapeHolidays };
 
-scrapeHolidays(year);
+// Jika dijalankan langsung dari command line
+if (require.main === module) {
+  const inputYear = process.argv[2];
+  const year = inputYear ? parseInt(inputYear, 10) : new Date().getFullYear();
+  scrapeHolidays(year);
+}

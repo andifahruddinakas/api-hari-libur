@@ -1,7 +1,22 @@
 const express = require("express");
 const fs = require("fs").promises;
 const path = require("path");
+const { scrapeHolidays } = require("./generator");
+
 const app = express();
+
+// Mulai scheduler untuk local development
+// Di production Vercel, cron jobs akan handle via /api/generate-holiday
+if (process.env.NODE_ENV !== "production") {
+  try {
+    const { startScheduler } = require("./scheduler");
+    startScheduler();
+  } catch (error) {
+    console.warn("Warning: Scheduler tidak tersedia, berjalan tanpa auto-generate");
+  }
+} else {
+  console.log("[INFO] Running in production mode. Using Vercel Crons for scheduling.");
+}
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -51,6 +66,41 @@ app.get("/api", async (req, res) => {
     }
     sendResponse(res, 500, null, `Server error: ${error.message}`);
   }
+});
+
+// Endpoint untuk manual trigger generation
+app.post("/api/generate", async (req, res) => {
+  const { year } = req.body;
+
+  if (!year) {
+    return sendResponse(res, 400, null, "Year parameter is required");
+  }
+
+  const targetYear = parseInt(year);
+  if (isNaN(targetYear) || targetYear < 2000 || targetYear > 2100) {
+    return sendResponse(res, 400, null, "Invalid year format");
+  }
+
+  try {
+    const result = await scrapeHolidays(targetYear);
+    if (result.success) {
+      sendResponse(res, 200, { year: targetYear }, result.message);
+    } else {
+      sendResponse(res, 500, null, result.message);
+    }
+  } catch (error) {
+    sendResponse(res, 500, null, `Error: ${error.message}`);
+  }
+});
+
+// Endpoint untuk info scheduler
+app.get("/api/scheduler/info", (req, res) => {
+  sendResponse(res, 200, {
+    status: "active",
+    schedule: "0 2 1 * * (setiap tanggal 1 bulan jam 02:00 pagi)",
+    nextRun: "Akan dijalankan pada tanggal 1 bulan depan",
+    lastUpdate: new Date().toISOString(),
+  }, "Scheduler is running");
 });
 
 app.use((req, res) => {

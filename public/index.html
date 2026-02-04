@@ -1,100 +1,258 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="API Hari Libur Nasional Indonesia" />
-    <meta name="author" content="Andi Fahruddin Akas" />
-    <meta name="keywords" content="API, Hari Libur, Nasional, Indonesia" />
-    <title>API Hari Libur Nasional Indonesia</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Hari Libur Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(to bottom, #2a5cff, #ffffff);
-            color: rgba(0, 0, 0, 0.87);
-            font-family: Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        #message {
-            background: white;
-            max-width: 805px;
-            margin: 16px auto;
-            padding: 32px 24px;
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        }
-        h2, h3 {
-            color: #2a5cff;
-            margin: 0 0 8px;
-        }
-        h1 {
-            font-size: 17px;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.6);
-            margin: 0 0 16px;
-        }
-        .grey {
-            line-height: 140%;
-            margin: 16px 0 24px;
-            font-size: 14px;
-            background-color: rgb(33, 31, 31);
-            padding: 10px;
-            border-radius: 5px; /* Tambahkan border-radius di sini */
-            color: rgb(255, 255, 255); /* Warna teks default */
-        }
-        .key {
-            color: #f22c3d;
-        }
-        .value {
-            color: #00a67d;
-        }
-        #load {
-            color: rgba(0, 0, 0, 0.4);
-            text-align: center;
-            font-size: 13px;
-        }
-        @media (max-width: 600px) {
-            #message {
-                max-width: 90%;
-                padding: 16px 12px;
-            }
-        }
-        ul li {
-            margin-bottom: 15px;
-        }
-        ul li small {
-            background-color: gainsboro;
-            padding: 5px;
-            border-radius: 7px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
-<body>
-    <div id="message">
-        <h2 align="center">API Hari Libur Nasional Indonesia</h2>
-        <h3>Format Response</h3>
-        <p class="grey">
-            { <br />
-            &nbsp;&nbsp;&nbsp;<span class="key">"status"</span> : <span class="value">"success"</span>, <br />
-            &nbsp;&nbsp;&nbsp;<span class="key">"code"</span> : <span class="value">200</span>, <br />
-            &nbsp;&nbsp;&nbsp;<span class="key">"data"</span> : { <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"date"</span> : <span class="value">"2024-01-01"</span>, <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"description"</span> : <span class="value">"Tahun Baru 2024"</span> <br />
-            &nbsp;&nbsp;&nbsp;}, <br />
-            &nbsp;&nbsp;&nbsp;<span class="key">"message"</span>: <span class="value">"Holidays found"</span> <br />
-            }<br />
-        </p>
-        <h3>Akses API</h3>
-        <ul>
-            <li><a href="/api">/api</a> untuk mendapatkan data hari libur tahun sekarang.</li>
-            <li><a href="/api?year=2024">/api?year=2024</a> untuk mendapatkan data hari libur pada tahun 2024.</li>
-            <li><a href="/api?month=1">/api?month=1</a> untuk mendapatkan data hari libur di bulan 1.</li>
-            <li><a href="/api?month=1&year=2024">/api?month=1&year=2024</a> untuk mendapatkan data hari libur di bulan 1 pada tahun 2024.</li>
-        </ul>
-        <h3>Sumber Data</h3>
-        <p>API ini mengambil data dari <a href="https://www.tanggalan.com/">tanggalan.com</a> dengan melakukan scraping.</p>
-        <h3>Kontribusi</h3>
-        <p>Jika Anda ingin berkontribusi, kunjungi repositori di <a href="https://github.com/andifahruddinakas/api-hari-libur">GitHub</a>.</p>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar text-white"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gray-900">Hari Libur API</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com/andifahruddinakas/api-hari-libur" target="_blank" class="text-gray-600 hover:text-gray-900">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl font-bold mb-4">
+                    API Hari Libur Nasional Indonesia
+                </h1>
+                <p class="text-lg text-indigo-100 mb-8 max-w-2xl mx-auto">
+                    REST API lengkap untuk data hari libur nasional dan cuti bersama Indonesia dengan update otomatis setiap bulan
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#api" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+                        Mulai Sekarang
+                    </a>
+                    <a href="https://github.com/andifahruddinakas/api-hari-libur" target="_blank" class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Stats -->
+    <div class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-indigo-600">2020-2026+</div>
+                    <div class="text-gray-600 mt-2">Tahun Tersedia</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-indigo-600">Auto Update</div>
+                    <div class="text-gray-600 mt-2">Setiap Bulan</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-indigo-600">100% Free</div>
+                    <div class="text-gray-600 mt-2">Open Source</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Fitur Unggulan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature Card 1 -->
+                <div class="bg-white p-6 rounded-lg card-hover shadow">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-sync-alt text-indigo-600"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">Update Otomatis</h3>
+                    <p class="text-gray-600 text-sm">Data otomatis di-update setiap tanggal 1 bulan</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="bg-white p-6 rounded-lg card-hover shadow">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-green-600"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">Super Cepat</h3>
+                    <p class="text-gray-600 text-sm">Response time minimal, di-host di Vercel</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="bg-white p-6 rounded-lg card-hover shadow">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-code text-blue-600"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">API Mudah</h3>
+                    <p class="text-gray-600 text-sm">Endpoint sederhana dengan dokumentasi lengkap</p>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="bg-white p-6 rounded-lg card-hover shadow">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-lock text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-gray-900">Reliable</h3>
+                    <p class="text-gray-600 text-sm">99.9% uptime dengan SLA dari Vercel</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Documentation -->
+    <div id="api" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-gray-900">API Endpoints</h2>
+            
+            <!-- Endpoint 1 -->
+            <div class="mb-8 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold">GET</span>
+                        <code class="text-gray-900 font-mono">/api</code>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">Ambil data hari libur berdasarkan tahun dan bulan</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto mb-4">
+                        <div class="text-cyan-400"># Semua hari libur 2026</div>
+                        <div>curl "https://api-hari-libur.vercel.app/api?year=2026"</div>
+                        <div class="mt-2 text-cyan-400"># Hari libur Januari 2026</div>
+                        <div>curl "https://api-hari-libur.vercel.app/api?year=2026&month=1"</div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <p class="font-semibold mb-2">Query Parameters:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code class="bg-gray-100 px-2 py-1 rounded">year</code> - Tahun (default: tahun saat ini)</li>
+                            <li><code class="bg-gray-100 px-2 py-1 rounded">month</code> - Bulan 1-12 (opsional)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoint 2 -->
+            <div class="mb-8 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-green-50 to-green-100 px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-green-600 text-white px-3 py-1 rounded text-sm font-bold">POST</span>
+                        <code class="text-gray-900 font-mono">/api/generate</code>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">Manual trigger untuk generate data tahun spesifik</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto mb-4">
+                        <div class="text-cyan-400"># Generate data tahun 2027</div>
+                        <div>curl -X POST "https://api-hari-libur.vercel.app/api/generate" \</div>
+                        <div class="ml-4">-H "Content-Type: application/json" \</div>
+                        <div class="ml-4">-d '{"{"}year": 2027{"}}'</div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <p class="font-semibold mb-2">Request Body:</p>
+                        <code class="bg-gray-100 p-2 rounded block">{"year": 2027}</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoint 3 -->
+            <div class="mb-8 border border-gray-200 rounded-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded text-sm font-bold">GET</span>
+                        <code class="text-gray-900 font-mono">/api/scheduler/info</code>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">Cek status scheduler dan informasi otomasi</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto">
+                        <div class="text-cyan-400"># Check scheduler status</div>
+                        <div>curl "https://api-hari-libur.vercel.app/api/scheduler/info"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Try It Out -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Coba Sekarang</h2>
+            <p class="text-indigo-100 mb-8">Akses API secara langsung melalui link berikut:</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://api-hari-libur.vercel.app/api?year=2026" target="_blank" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+                    <i class="fas fa-external-link-alt mr-2"></i> Data 2026
+                </a>
+                <a href="https://api-hari-libur.vercel.app/api?year=2026&month=1" target="_blank" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+                    <i class="fas fa-external-link-alt mr-2"></i> Data Januari 2026
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-gray-900">Quick Start</h2>
+            <div class="bg-gray-50 rounded-lg p-8">
+                <h3 class="font-bold text-lg mb-4 text-gray-900">JavaScript / Node.js</h3>
+                <div class="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto">
+                    <div class="text-cyan-400">// Fetch holidays 2026</div>
+                    <div>fetch('https://api-hari-libur.vercel.app/api?year=2026')</div>
+                    <div class="ml-2">.then(res => res.json())</div>
+                    <div class="ml-2">.then(data => console.log(data))</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-white font-bold mb-4">Tentang</h3>
+                    <p class="text-sm">REST API untuk data hari libur nasional Indonesia dengan update otomatis setiap bulan.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Links</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="https://github.com/andifahruddinakas/api-hari-libur" class="hover:text-white transition">GitHub</a></li>
+                        <li><a href="https://github.com/andifahruddinakas/api-hari-libur/issues" class="hover:text-white transition">Issues</a></li>
+                        <li><a href="https://saweria.co/andifahruddinakas" class="hover:text-white transition">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Developer</h3>
+                    <p class="text-sm">
+                        Made by <a href="https://github.com/andifahruddinakas" class="text-indigo-400 hover:text-indigo-300">Andi Fahruddin Akas</a>
+                    </p>
+                    <p class="text-sm mt-2">Open Source • MIT License</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-sm text-center">
+                <p>&copy; 2026 API Hari Libur Indonesia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
