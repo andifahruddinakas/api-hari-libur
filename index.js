@@ -5,17 +5,17 @@ const { scrapeHolidays } = require("./generator");
 
 const app = express();
 
-// Mulai scheduler untuk local development
-// Di production Vercel, cron jobs akan handle via /api/generate-holiday
+// Mulai scheduler hanya untuk local development
+// Di production Vercel, gunakan Vercel Crons via /api/generate-holiday
 if (process.env.NODE_ENV !== "production") {
   try {
     const { startScheduler } = require("./scheduler");
     startScheduler();
   } catch (error) {
-    console.warn("Warning: Scheduler tidak tersedia, berjalan tanpa auto-generate");
+    console.warn("[WARN] Scheduler tidak tersedia. Berjalan tanpa auto-generate local.");
   }
 } else {
-  console.log("[INFO] Running in production mode. Using Vercel Crons for scheduling.");
+  console.log("[INFO] Running in production mode (Vercel). Using Vercel Crons for scheduling.");
 }
 
 app.use(express.json());

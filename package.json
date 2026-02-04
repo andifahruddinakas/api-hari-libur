@@ -1,18 +1,27 @@
 {
-  "dependencies": {
-    "express": "^4.21.2",
-    "index.js": "^0.0.3",
-    "node-cron": "^4.2.1",
-    "touch": "^3.1.1"
-  },
   "name": "api-hari-libur",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "REST API untuk data hari libur nasional Indonesia",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "api",
+    "holidays",
+    "indonesia",
+    "hari-libur"
+  ],
+  "author": "Andi Fahruddin Akas",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.21.2",
+    "axios": "^1.8.2",
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "node-cron": "^4.2.1"
+  }
 }
