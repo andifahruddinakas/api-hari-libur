@@ -3,11 +3,11 @@
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://api-hari-libur.vercel.app)
 [![License](https://img.shields.io/badge/License-ISC-green?style=flat-square)](LICENSE)
 
-REST API untuk data hari libur nasional dan cuti bersama Indonesia. Data otomatis di-update setiap bulan menggunakan web scraping dari [tanggalan.com](https://www.tanggalan.com/).
+REST API untuk data hari libur nasional dan cuti bersama Indonesia. Data otomatis di-update setiap hari menggunakan web scraping halaman daftar resmi SKB dari [tanggalans.com](https://tanggalans.com/).
 
 ## 🚀 Fitur
 
-- ✅ **Data Terkini**: Otomatis update setiap tanggal 1 bulan
+- ✅ **Data Terkini**: Otomatis update setiap hari pukul 02:00 UTC
 - ✅ **Simple REST API**: Endpoint yang mudah digunakan
 - ✅ **Dual Scheduling**: Local node-cron + Vercel crons
 - ✅ **Manual Trigger**: Bisa generate data on-demand
@@ -180,8 +180,8 @@ curl "https://api-hari-libur.vercel.app/api/scheduler/info"
   "code": 200,
   "data": {
     "status": "active",
-    "schedule": "0 2 1 * * (setiap tanggal 1 bulan jam 02:00 pagi)",
-    "nextRun": "Akan dijalankan pada tanggal 1 bulan depan",
+    "schedule": "0 2 * * * (setiap hari jam 02:00 pagi)",
+    "nextRun": "Akan dijalankan pada pukul 02:00 besok",
     "lastUpdate": "2026-02-04T13:37:12.000Z"
   },
   "message": "Scheduler is running"
@@ -192,20 +192,20 @@ curl "https://api-hari-libur.vercel.app/api/scheduler/info"
 
 ## ⏰ Automatic Scheduling
 
-Data hari libur otomatis di-generate setiap bulan tanpa perlu intervensi manual.
+Data hari libur otomatis di-generate setiap hari tanpa perlu intervensi manual.
 
 ### Schedule Configuration
 
-**Cron Expression:** `0 2 1 * *`
+**Cron Expression:** `0 2 * * *`
 
 **Arti:** 
 - `0` = Menit ke-0
-- `2` = Jam ke-2 (02:00)
-- `1` = Tanggal 1
+- `2` = Jam ke-2 (02:00 UTC)
+- `*` = Setiap hari
 - `*` = Setiap bulan
 - `*` = Setiap hari dalam minggu
 
-**Waktu Eksekusi:** Tanggal 1 setiap bulan, pukul 02:00 UTC
+**Waktu Eksekusi:** Setiap hari, pukul 02:00 UTC
 
 ### Dual Scheduling System
 
@@ -355,7 +355,7 @@ Dokumentasi detailed tersedia dalam file-file berikut:
 
 ## 🔄 Data Source
 
-Data hari libur bersumber dari: [**https://www.tanggalan.com/**](https://www.tanggalan.com/)
+Data hari libur bersumber dari: [**https://tanggalans.com/**](https://tanggalans.com/)
 
 **Update Frequency:** Otomatis setiap tanggal 1 bulan pukul 02:00 UTC
 
@@ -440,11 +440,13 @@ Jika project ini membantu Anda, consider untuk:
 | **API** | ✅ Operational |
 | **Scheduler (Local)** | ✅ Running |
 | **Scheduler (Vercel)** | ✅ Active |
+| **Data 2027** | ✅ Available |
 | **Data 2026** | ✅ Available |
 | **Data 2025** | ✅ Available |
 | **Data 2024** | ✅ Available |
+| **Data 2023** | ✅ Available |
 
 ---
 
-**Last Updated:** February 2026  
+**Last Updated:** May 2026  
 **Status:** Production Ready ✅

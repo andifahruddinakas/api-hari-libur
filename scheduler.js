@@ -2,12 +2,12 @@ const cron = require("node-cron");
 const { scrapeHolidays } = require("./generator");
 
 /**
- * Scheduler untuk otomatis generate data liburan tiap bulan
- * Berjalan setiap tanggal 1 bulan pada jam 02:00 pagi
+ * Scheduler untuk otomatis generate data liburan tiap hari
+ * Berjalan setiap hari pada jam 02:00 pagi
  */
 const startScheduler = () => {
-  // Cron expression: "0 2 1 * *" = jam 02:00, tanggal 1, setiap bulan
-  const task = cron.schedule("0 2 1 * *", async () => {
+  // Cron expression: "0 2 * * *" = jam 02:00 pagi, setiap hari
+  const task = cron.schedule("0 2 * * *", async () => {
     console.log(`\n${"=".repeat(60)}`);
     console.log(`[${new Date().toISOString()}] Menjalankan scheduled generation...`);
     console.log("=".repeat(60));
@@ -42,7 +42,7 @@ const startScheduler = () => {
 
   console.log("[SCHEDULER] Scheduled task telah diaktifkan");
   console.log(
-    "[SCHEDULER] Generator akan berjalan otomatis setiap tanggal 1 bulan jam 02:00 pagi"
+    "[SCHEDULER] Generator akan berjalan otomatis setiap hari jam 02:00 pagi"
   );
   console.log(`[SCHEDULER] Waktu server: ${new Date().toLocaleString()}`);
 

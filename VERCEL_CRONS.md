@@ -12,7 +12,7 @@ node index.js
 
 # Output:
 # [SCHEDULER] Scheduled task telah diaktifkan
-# [SCHEDULER] Generator akan berjalan otomatis setiap tanggal 1 bulan jam 02:00 pagi
+# [SCHEDULER] Generator akan berjalan otomatis setiap hari jam 02:00 pagi
 # Server running on 5000
 ```
 
@@ -25,11 +25,11 @@ Vercel otomatis trigger endpoint `/api/generate-holiday` sesuai jadwal
 
 ### ⏰ Jadwal
 
-Cron Schedule: `0 2 1 * *`
+Cron Schedule: `0 2 * * *`
 
 Dijalankan otomatis pada:
-- **Waktu**: Tanggal 1 setiap bulan, jam 02:00 UTC
-- **Frekuensi**: 12x per tahun (setiap bulan)
+- **Waktu**: Setiap hari, jam 02:00 UTC
+- **Frekuensi**: Setiap hari (365x per tahun)
 - **Target**: Generate data liburan untuk tahun saat ini + tahun depan (jika bulan >= Oktober)
 
 ### 📁 File Structure
@@ -50,7 +50,7 @@ File: `vercel.json`
   "crons": [
     {
       "path": "/api/generate-holiday",
-      "schedule": "0 2 1 * *"
+      "schedule": "0 2 * * *"
     }
   ]
 }
@@ -156,7 +156,7 @@ Untuk get notified jika cron job gagal, setup di Vercel dashboard:
 
 1. Deploy ke Vercel (otomatis via GitHub push)
 2. Monitor first cron execution
-3. Verify data updates pada tanggal 1 bulan depan
+3. Verify data updates keesokan harinya
 4. Setup notifications jika ingin alerts
 
 Selamat! API sekarang fully automated di production! 🚀

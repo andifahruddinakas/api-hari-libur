@@ -19,7 +19,7 @@
   "crons": [
     {
       "path": "/api/generate-holiday",
-      "schedule": "0 2 1 * *"
+      "schedule": "0 2 * * *"
     }
   ]
 }

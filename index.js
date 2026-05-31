@@ -97,8 +97,8 @@ app.post("/api/generate", async (req, res) => {
 app.get("/api/scheduler/info", (req, res) => {
   sendResponse(res, 200, {
     status: "active",
-    schedule: "0 2 1 * * (setiap tanggal 1 bulan jam 02:00 pagi)",
-    nextRun: "Akan dijalankan pada tanggal 1 bulan depan",
+    schedule: "0 2 * * * (setiap hari jam 02:00 pagi)",
+    nextRun: "Akan dijalankan pada pukul 02:00 besok",
     lastUpdate: new Date().toISOString(),
   }, "Scheduler is running");
 });

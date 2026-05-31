@@ -21,7 +21,7 @@ Scheduler Anda sudah **100% berjalan di production Vercel** menggunakan Vercel C
   "crons": [
     {
       "path": "/api/generate-holiday",
-      "schedule": "0 2 1 * *"
+      "schedule": "0 2 * * *"
     }
   ]
 }
@@ -29,7 +29,7 @@ Scheduler Anda sudah **100% berjalan di production Vercel** menggunakan Vercel C
 
 **Arti:**
 - **path**: `/api/generate-holiday` - Endpoint yang di-trigger
-- **schedule**: `0 2 1 * *` - Tanggal 1 setiap bulan, jam 02:00 UTC
+- **schedule**: `0 2 * * *` - Setiap hari, jam 02:00 UTC
 
 ---
 
@@ -38,7 +38,7 @@ Scheduler Anda sudah **100% berjalan di production Vercel** menggunakan Vercel C
 ### Timeline Otomatis:
 
 ```
-Tanggal 1 Bulan, Jam 02:00 UTC
+Setiap Hari, Jam 02:00 UTC
            ↓
 Vercel Crons trigger request
            ↓
@@ -54,7 +54,7 @@ API serve data terbaru
 ### Proses Detail:
 
 1. **Vercel Crons** check jadwal setiap menit
-2. **Tanggal 1 jam 02:00 UTC** - trigger `/api/generate-holiday`
+2. **Setiap hari jam 02:00 UTC** - trigger `/api/generate-holiday`
 3. **Handler** di `api/generate-holiday.js` dijalankan
 4. **Scraper** fetch data dari tanggalan.com
 5. **Save** hasil ke `data/2026.json`, `data/2027.json` dll
@@ -264,7 +264,7 @@ Anda bisa setup alerts jika cron gagal:
 
 ## 📈 Expected Behavior
 
-**Setiap tanggal 1 bulan jam 02:00 UTC:**
+**Setiap hari jam 02:00 UTC:**
 
 1. ✅ Vercel Crons trigger `/api/generate-holiday`
 2. ✅ Handler dijalankan

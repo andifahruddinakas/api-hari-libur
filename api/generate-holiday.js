@@ -1,6 +1,6 @@
 /**
  * API Handler untuk Vercel Cron Jobs
- * Menjalankan generator setiap tanggal 1 bulan jam 02:00 UTC
+ * Menjalankan generator setiap hari jam 02:00 UTC
  * 
  * Vercel akan otomatis call endpoint ini sesuai jadwal cron
  */

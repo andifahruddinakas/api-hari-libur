@@ -5,8 +5,12 @@ const path = require("path");
 
 const scrapeHolidays = async (year) => {
   try {
-    const url = `https://www.tanggalan.com/${year}`;
-    const response = await axios.get(url);
+    const url = `https://tanggalans.com/hari-libur-nasional-${year}/`;
+    const response = await axios.get(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      }
+    });
     const $ = cheerio.load(response.data);
     const holidays = [];
 
@@ -25,38 +29,80 @@ const scrapeHolidays = async (year) => {
       desember: "12",
     };
 
-    $("article ul").each((_, list) => {
-      const monthText = $(list)
-        .find("li a")
-        .first()
-        .text()
-        .replace(/\d+/g, "")
-        .trim()
-        .toLowerCase();
-      const month = monthMap[monthText];
+    const cleanText = (html) => {
+      let text = html.replace(/<[^>]*>/g, ""); // Hapus tag HTML
+      text = text.replace(/,?\s*dan\s*/gi, "").replace(/[,.]/g, "").trim(); // Hapus "dan", ",", "."
+      return text;
+    };
 
-      $(list)
+    const parseDateText = (dateText, year) => {
+      const parts = dateText.split(/\s+/);
+      if (parts.length < 2) return [];
+
+      const dayPart = parts[0];
+      const monthText = parts[1].toLowerCase();
+      const month = monthMap[monthText];
+      if (!month) return [];
+
+      const dates = [];
+      if (dayPart.includes("-")) {
+        const [start, end] = dayPart.split("-").map(Number);
+        if (!isNaN(start) && !isNaN(end)) {
+          for (let d = start; d <= end; d++) {
+            dates.push(`${year}-${month}-${String(d).padStart(2, "0")}`);
+          }
+        }
+      } else {
+        const day = parseInt(dayPart, 10);
+        if (!isNaN(day)) {
+          dates.push(`${year}-${month}-${String(day).padStart(2, "0")}`);
+        }
+      }
+      return dates;
+    };
+
+    $("table").each((index, table) => {
+      $(table)
         .find("tbody tr")
         .each((_, row) => {
-          const dateText = $(row).find("td").first().text().trim();
-          const description = $(row).find("td").eq(1).text().trim();
+          const cells = $(row).find("td");
+          if (cells.length < 3) return;
 
-          if (dateText.includes("-")) {
-            const [start, end] = dateText.split("-").map(Number);
-            for (let day = start; day <= end; day++) {
-              holidays.push({
-                date: `${year}-${month}-${String(day).padStart(2, "0")}`,
-                description: description,
-              });
-            }
-          } else {
-            holidays.push({
-              date: `${year}-${month}-${dateText.padStart(2, "0")}`,
-              description: description,
-            });
+          const dateCellHtml = $(cells[0]).html() || "";
+          let description = $(cells[2]).text().trim();
+
+          if (!dateCellHtml || !description) return;
+
+          // Cek jika ini tabel Cuti Bersama
+          const headingText = $(table).prevAll("h2").first().text().toLowerCase();
+          const isCutiBersama = headingText.includes("cuti bersama") || index === 1;
+
+          if (isCutiBersama && !description.toLowerCase().startsWith("cuti bersama")) {
+            description = "Cuti Bersama " + description;
           }
+
+          // Pisahkan tanggal jika memiliki <br>
+          const dateLines = dateCellHtml.split(/<br\s*\/?>/i);
+
+          dateLines.forEach((line) => {
+            const cleanedText = cleanText(line);
+            if (!cleanedText) return;
+
+            const parsedDates = parseDateText(cleanedText, year);
+            parsedDates.forEach((formattedDate) => {
+              if (!holidays.some((h) => h.date === formattedDate)) {
+                holidays.push({
+                  date: formattedDate,
+                  description: description,
+                });
+              }
+            });
+          });
         });
     });
+
+    // Urutkan berdasarkan tanggal ASC
+    holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     const outputPath = path.join(__dirname, "../data", `${year}.json`);
     if (!fs.existsSync(path.dirname(outputPath))) {
